@@ -6,14 +6,14 @@ import { SpotifyAuthContext } from "../../contexts/SpotifyAuthContext/SpotifyAut
 import { useDebounce } from "../../hooks/useDebounce"
 import { useSearchArtists } from "../../hooks/useSearchArtists"
 
-export const Suggestions: React.FC = () => {
+export const Recommendations: React.FC = () => {
   const { token, loading, setIdle } = useContext(SpotifyAuthContext)
 
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!token) {
-      navigate("/home")
+      navigate("/")
     }
   }, [token])
 

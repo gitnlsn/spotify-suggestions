@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/suggestions")
+      navigate("/recommendations")
     }
   }, [token])
 
@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
     if (!token) {
       location.assign(authorizeUrl)
     } else {
-      navigate("/suggestions")
+      navigate("/recommendations")
     }
   }
 
