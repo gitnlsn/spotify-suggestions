@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/gitnlsn/spotify-suggestions/branch/main/graph/badge.svg?token=MgmICeGr3x)](https://codecov.io/gh/gitnlsn/spotify-suggestions)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/gitnlsn/spotify-suggestions/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gitnlsn/spotify-suggestions/tree/main)
 
 # Description
 
