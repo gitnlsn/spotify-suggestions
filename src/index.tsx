@@ -1,11 +1,8 @@
 import React from "react"
-import ReactDOM from "react-dom/client"
+import { render } from "react-dom"
 import { App } from "./App"
 import { loadI18Next } from "./locales"
 
 loadI18Next().then(() => {
-  const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement
-  )
-  root.render(<App />)
+  render(<App />, document.getElementById("root") as HTMLElement)
 })

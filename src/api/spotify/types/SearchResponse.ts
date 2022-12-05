@@ -1,5 +1,5 @@
-import { SearchArtist } from "./SearchArtist"
-import { SearchTrack } from "./SearchTrack"
+import { Artist } from "./Artist"
+import { Track } from "./Track"
 
 export interface SearchResponseProps {
   artists?: {
@@ -9,7 +9,7 @@ export interface SearchResponseProps {
     offset: number
     total: number
     previous: null
-    items: SearchArtist[]
+    items: Artist[]
   }
   tracks?: {
     href: string // current get url
@@ -18,6 +18,6 @@ export interface SearchResponseProps {
     offset: number
     total: number
     previous: null
-    items: SearchTrack[]
+    items: Track[]
   }
 }

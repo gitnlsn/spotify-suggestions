@@ -1,4 +1,5 @@
-import axios from "axios"
+import { Buffer } from "buffer"
+import { createSpotifyAxiosInstance } from "../utils/AxiosInstance"
 
 export interface AuthResponse {
   access_token: string
@@ -25,24 +26,22 @@ export const authenticate = async ({
   code,
   redirect_uri,
 }: AuthProps): Promise<AuthResponse> => {
-  const authOptions = {
-    url: "https://accounts.spotify.com/api/token",
-    headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(client_id + ":" + client_secret).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    form: {
-      code: code,
-      redirect_uri: redirect_uri,
-      grant_type: "authorization_code",
-    },
-  }
+  const token = Buffer.from(client_id + ":" + client_secret).toString("base64")
 
-  return axios
-    .post(authOptions.url, authOptions.form, {
-      headers: authOptions.headers,
-    })
+  return createSpotifyAxiosInstance()
+    .post<AuthResponse>(
+      "https://accounts.spotify.com/api/token",
+      {
+        code: code,
+        redirect_uri: redirect_uri,
+        grant_type: "authorization_code",
+      },
+      {
+        headers: {
+          Authorization: `Basic ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    )
     .then((data) => data.data)
 }

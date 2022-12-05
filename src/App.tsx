@@ -1,6 +1,6 @@
 import React from "react"
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
-import { SpotifyAuthProvider } from "./contexts/SpotifyAuthContext/SpotifyAuthContext"
+import { SpotifyAuthProvider } from "./contexts/SpotifyAuth/SpotifyAuthContext"
 import { Home } from "./pages/Home/Home"
 import { Recommendations } from "./pages/Recommendations/Recommendations"
 

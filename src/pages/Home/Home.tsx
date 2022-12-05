@@ -10,14 +10,16 @@ import {
 import { useTranslation } from "react-i18next"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { getAuthorizeUrl } from "../../utils/getAuthorizeUrl"
-import { SpotifyAuthContext } from "../../contexts/SpotifyAuthContext/SpotifyAuthContext"
+import { SpotifyAuthContext } from "../../contexts/SpotifyAuth/SpotifyAuthContext"
+import { SpotifyTokenContext } from "../../contexts/SpotifyToken/SpotifyTokenContext"
 
 export const Home: React.FC = () => {
   const { t: homeText } = useTranslation("home")
 
   const authorizeUrl = getAuthorizeUrl()
 
-  const { token, setAuthorizationCode } = useContext(SpotifyAuthContext)
+  const { token } = useContext(SpotifyTokenContext)
+  const { setAuthorizationCode } = useContext(SpotifyAuthContext)
 
   const navigate = useNavigate()
 
@@ -35,17 +37,17 @@ export const Home: React.FC = () => {
       prev.delete("code")
       return prev
     })
-  }, [code])
+  }, [code, setAuthorizationCode, setSearchParams])
 
   useEffect(() => {
     if (token) {
       navigate("/recommendations")
     }
-  }, [token])
+  }, [token, navigate])
 
   const onClickAuthorize = () => {
     if (!token) {
-      location.assign(authorizeUrl)
+      window.location.assign(authorizeUrl)
     } else {
       navigate("/recommendations")
     }

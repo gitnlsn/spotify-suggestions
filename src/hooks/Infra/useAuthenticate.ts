@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { authenticate } from "../api/spotify/ClientAuthentication"
-import { Loading } from "./types"
+import { useCallback, useEffect, useState } from "react"
+import { authenticate } from "../../api/spotify/routes/ClientAuthentication"
+import { Loading } from "../types/Loading"
 
 interface useAuthenticatorProps {
   code?: string | null
@@ -12,17 +12,16 @@ interface State {
   loading: Loading
 }
 
-export const useAuthenticator = ({ code }: useAuthenticatorProps) => {
+export const useAuthenticate = ({ code }: useAuthenticatorProps) => {
   const [state, setState] = useState<State>({
     token: null,
     refreshToken: null,
     loading: "idle",
   })
 
-  const forceLoad = () => {
+  const forceLoad = useCallback(() => {
     if (!code) {
-      console.warn("Missing authorization code to perform authentication")
-      return
+      return Promise.reject("Missing authorization code to authenticate")
     }
 
     setState({
@@ -30,12 +29,14 @@ export const useAuthenticator = ({ code }: useAuthenticatorProps) => {
       refreshToken: null,
       loading: "pending",
     })
-    return authenticate({
+    const authenticationPromise = authenticate({
       client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID || "",
       client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || "",
       redirect_uri: process.env.REACT_APP_SPOTIFY_AUTH2_REDIRECT_URL || "",
       code,
     })
+
+    authenticationPromise
       .then((data) =>
         setState({
           token: data.access_token,
@@ -43,15 +44,16 @@ export const useAuthenticator = ({ code }: useAuthenticatorProps) => {
           loading: "success",
         })
       )
-      .catch((error) => {
-        console.error(error)
+      .catch(() => {
         setState({
           token: null,
           refreshToken: null,
           loading: "error",
         })
       })
-  }
+
+    return authenticationPromise
+  }, [code])
 
   const setIdle = () => {
     setState((current) => ({
@@ -64,7 +66,7 @@ export const useAuthenticator = ({ code }: useAuthenticatorProps) => {
     if (state.loading === "idle" && code && !state.token) {
       forceLoad()
     }
-  }, [code])
+  }, [code, forceLoad, state.loading, state.token])
 
   return {
     ...state,

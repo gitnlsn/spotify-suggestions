@@ -1,7 +1,7 @@
 import { Image } from "./Image"
 import { SearchType } from "./SearchType"
 
-export interface SearchArtist {
+export interface Artist {
   name: string
   external_urls: {
     spotify: string

@@ -1,13 +1,15 @@
 import { Autocomplete, Container, Stack, TextField } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { SearchArtist } from "../../api/spotify/types/SearchArtist"
-import { SpotifyAuthContext } from "../../contexts/SpotifyAuthContext/SpotifyAuthContext"
-import { useDebounce } from "../../hooks/useDebounce"
-import { useSearchArtists } from "../../hooks/useSearchArtists"
+import { Artist } from "../../api/spotify/types/Artist"
+import { SpotifyAuthContext } from "../../contexts/SpotifyAuth/SpotifyAuthContext"
+import { useDebounce } from "../../hooks/utils/useDebounce"
+import { useSearchArtists } from "../../hooks/Loaders/useSearchArtists"
+import { SpotifyTokenContext } from "../../contexts/SpotifyToken/SpotifyTokenContext"
 
 export const Recommendations: React.FC = () => {
-  const { token, loading, setIdle } = useContext(SpotifyAuthContext)
+  const { token } = useContext(SpotifyTokenContext)
+  const { loading, setIdle } = useContext(SpotifyAuthContext)
 
   const navigate = useNavigate()
 
@@ -15,13 +17,13 @@ export const Recommendations: React.FC = () => {
     if (!token) {
       navigate("/")
     }
-  }, [token])
+  }, [token, navigate])
 
   useEffect(() => {
     if (loading === "success") {
       setIdle()
     }
-  }, [loading])
+  }, [loading, setIdle])
 
   const [inputString, setInputString] = useState<string>("")
 
@@ -29,11 +31,10 @@ export const Recommendations: React.FC = () => {
 
   const { artists, loading: loadingArtits } = useSearchArtists({
     query: debouncedInputString,
-    token,
     limit: 50,
   })
 
-  const [selectedArtits, setSelectedArtits] = useState<SearchArtist[]>([])
+  const [selectedArtits, setSelectedArtits] = useState<Artist[]>([])
 
   useEffect(() => {
     console.log(selectedArtits)
