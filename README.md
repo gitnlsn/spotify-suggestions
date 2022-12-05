@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/gitnlsn/spotify-suggestions/branch/main/graph/badge.svg?token=MgmICeGr3x)](https://codecov.io/gh/gitnlsn/spotify-suggestions)
+
 # Description
 
 This project is a front-end app that consumes [spotify api](https://developer.spotify.com/documentation). The idea is to create a new experience with Spotify, providing more features, automation and discovery.
