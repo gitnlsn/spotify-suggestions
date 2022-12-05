@@ -16,8 +16,10 @@ jobs:
     steps:
       - checkout
       - run: yarn
-      - run: |
-          npx jest --coverage
+      - run: npx jest --coverage
+      - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
+      - run: chmod +x codecov
+      - run: ./codecov
 
 workflows:
   my-custom-workflow:
