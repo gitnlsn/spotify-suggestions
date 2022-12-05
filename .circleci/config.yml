@@ -13,13 +13,13 @@ executors:
 jobs:
   tests:
     environment:
-      REACT_APP_SPOTIFY_CLIENT_ID: 1344df6ee36c4957a647d01ad73b6b73
-      REACT_APP_SPOTIFY_CLIENT_SECRET: 0be40ec615344ac8bc1619a3968d2c19
+      REACT_APP_SPOTIFY_CLIENT_ID: $REACT_APP_SPOTIFY_CLIENT_ID
+      REACT_APP_SPOTIFY_CLIENT_SECRET: $REACT_APP_SPOTIFY_CLIENT_SECRET
     executor: my-custom-executor
     steps:
       - checkout
       - run: |
-          npx jest --converage
+          npm test --coverage
 
 workflows:
   my-custom-workflow:
