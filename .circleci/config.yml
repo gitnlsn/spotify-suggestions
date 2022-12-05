@@ -1,3 +1,27 @@
 # CircleCI configuration file
 
 version: 2.1
+executors:
+  my-custom-executor:
+    docker:
+      - image: cimg/base:stable
+        auth:
+          # ensure you have first added these secrets
+          # visit app.circleci.com/settings/project/github/gitnlsn/spotify-suggestions/environment-variables
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+jobs:
+  tests:
+    environment:
+      REACT_APP_SPOTIFY_CLIENT_ID: 1344df6ee36c4957a647d01ad73b6b73
+      REACT_APP_SPOTIFY_CLIENT_SECRET: 0be40ec615344ac8bc1619a3968d2c19
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - run: |
+          npx jest --converage
+
+workflows:
+  my-custom-workflow:
+    jobs:
+      - tests
