@@ -12,9 +12,6 @@ executors:
           password: $DOCKER_HUB_PASSWORD
 jobs:
   tests:
-    environment:
-      REACT_APP_SPOTIFY_CLIENT_ID: $REACT_APP_SPOTIFY_CLIENT_ID
-      REACT_APP_SPOTIFY_CLIENT_SECRET: $REACT_APP_SPOTIFY_CLIENT_SECRET
     executor: my-custom-executor
     steps:
       - checkout
