@@ -4,7 +4,7 @@ version: 2.1
 executors:
   my-custom-executor:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:lts
         auth:
           # ensure you have first added these secrets
           # visit app.circleci.com/settings/project/github/gitnlsn/spotify-suggestions/environment-variables
@@ -18,8 +18,9 @@ jobs:
     executor: my-custom-executor
     steps:
       - checkout
+      - run: yarn
       - run: |
-          npm test --coverage
+          npx jest --coverage
 
 workflows:
   my-custom-workflow:
