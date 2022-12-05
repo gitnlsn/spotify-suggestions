@@ -2,7 +2,7 @@
 
 version: 2.1
 executors:
-  my-custom-executor:
+  docker-executor:
     docker:
       - image: cimg/node:lts
         auth:
@@ -12,7 +12,7 @@ executors:
           password: $DOCKER_HUB_PASSWORD
 jobs:
   tests:
-    executor: my-custom-executor
+    executor: docker-executor
     steps:
       - checkout
       - run: yarn
@@ -20,8 +20,16 @@ jobs:
       - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
       - run: chmod +x codecov
       - run: ./codecov
+  build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run: yarn
+      - run: npx react-scripts build
+          
 
 workflows:
   my-custom-workflow:
     jobs:
       - tests
+      - build
