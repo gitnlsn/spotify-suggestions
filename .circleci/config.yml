@@ -1,3 +1,35 @@
 # CircleCI configuration file
 
 version: 2.1
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/node:lts
+        auth:
+          # ensure you have first added these secrets
+          # visit app.circleci.com/settings/project/github/gitnlsn/spotify-suggestions/environment-variables
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+jobs:
+  tests:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run: yarn
+      - run: npx jest --coverage
+      - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
+      - run: chmod +x codecov
+      - run: ./codecov
+  build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run: yarn
+      - run: npx react-scripts build
+          
+
+workflows:
+  my-custom-workflow:
+    jobs:
+      - tests
+      - build
