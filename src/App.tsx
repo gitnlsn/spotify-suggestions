@@ -1,5 +1,6 @@
 import React from "react"
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
+import { AxiosProvider } from "./contexts/Axios/AxiosContext"
 import { SpotifyAuthProvider } from "./contexts/SpotifyAuth/SpotifyAuthContext"
 import { Home } from "./pages/Home/Home"
 import { Recommendations } from "./pages/Recommendations/Recommendations"
@@ -13,7 +14,9 @@ const router = createBrowserRouter([
 export const App: React.FC = () => {
   return (
     <SpotifyAuthProvider>
-      <RouterProvider router={router} />
+      <AxiosProvider>
+        <RouterProvider router={router} />
+      </AxiosProvider>
     </SpotifyAuthProvider>
   )
 }
