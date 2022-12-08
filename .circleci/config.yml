@@ -2,7 +2,7 @@
 
 version: 2.1
 executors:
-  docker-executor:
+  docker-node:
     docker:
       - image: cimg/node:lts
         auth:
@@ -10,26 +10,52 @@ executors:
           # visit app.circleci.com/settings/project/github/gitnlsn/spotify-suggestions/environment-variables
           username: $DOCKER_HUB_USER
           password: $DOCKER_HUB_PASSWORD
+  docker-python:
+    docker:
+      - image: cimg/python:3.9.6
 jobs:
   tests:
-    executor: docker-executor
+    executor: docker-node
     steps:
       - checkout
-      - run: yarn
-      - run: npx jest --coverage
-      - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
-      - run: chmod +x codecov
-      - run: ./codecov
+      - run: 
+          name: Install dependencies
+          command: yarn
+      - run: 
+          name: Run Tests
+          command: npx jest --coverage
+      - run: 
+          name: Download executable
+          command: curl -Os https://uploader.codecov.io/latest/linux/codecov
+      - run: 
+          name: Make executable
+          command: chmod +x codecov
+      - run: 
+          name: Run codecov
+          command: ./codecov
   build:
-    executor: docker-executor
+    executor: docker-node
     steps:
       - checkout
-      - run: yarn
-      - run: npx react-scripts build
-          
-
+      - run: 
+          name: Install Dependencies
+          command: yarn
+      - run: 
+          name: Build
+          command: npx react-scripts build
+  security:
+    executor: docker-python
+    steps:
+      - checkout
+      - run:
+          name: Install njsscan
+          command: pip install --upgrade njsscan
+      - run:
+           name: njsscan check
+           command: njsscan .
 workflows:
-  my-custom-workflow:
+  basic-workflow:
     jobs:
       - tests
       - build
+      - security
