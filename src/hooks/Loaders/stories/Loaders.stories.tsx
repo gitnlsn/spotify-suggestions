@@ -64,7 +64,13 @@ const Consumer: React.FC = () => {
                 <TableCell>ServerAuthentication</TableCell>
                 <TableCell>{loadingAuthentication}</TableCell>
                 <TableCell>
-                  <Button onClick={forceLoadAuthentication}>Reload</Button>
+                  <Button
+                    onClick={() => {
+                      forceLoadAuthentication().catch(console.error)
+                    }}
+                  >
+                    Reload
+                  </Button>
                 </TableCell>
               </TableRow>
 
@@ -72,7 +78,13 @@ const Consumer: React.FC = () => {
                 <TableCell>SearchArtists</TableCell>
                 <TableCell>{loadingSearchArtists}</TableCell>
                 <TableCell>
-                  <Button onClick={forceLoadSearchArtists}>Reload</Button>
+                  <Button
+                    onClick={() => {
+                      forceLoadSearchArtists().catch(console.error)
+                    }}
+                  >
+                    Reload
+                  </Button>
                 </TableCell>
               </TableRow>
 
@@ -80,7 +92,13 @@ const Consumer: React.FC = () => {
                 <TableCell>Recommendations</TableCell>
                 <TableCell>{loadingRecommendations}</TableCell>
                 <TableCell>
-                  <Button onClick={forceLoadRecommendations}>Reload</Button>
+                  <Button
+                    onClick={() => {
+                      forceLoadRecommendations().catch(console.error)
+                    }}
+                  >
+                    Reload
+                  </Button>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -95,8 +113,8 @@ const Template = () => {
   return (
     <DevInfraProvider
       authentication={{
-        client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID || "",
-        client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || "",
+        client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID ?? "",
+        client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET ?? "",
       }}
     >
       <Consumer />

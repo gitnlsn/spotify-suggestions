@@ -43,13 +43,13 @@ export const useRecommendations = ({
     return total
   }, [genres, artistIds])
 
-  const forceLoad = useCallback(() => {
+  const forceLoad = useCallback(async () => {
     if (totalSeeds === 0) {
       setState({
         tracks: [],
         loading: "error",
       })
-      return Promise.reject("Missing seeds to get recommendations")
+      return Promise.reject(new Error("Missing seeds to get recommendations"))
     }
 
     if (totalSeeds > 5) {
@@ -57,7 +57,7 @@ export const useRecommendations = ({
         tracks: [],
         loading: "error",
       })
-      return Promise.reject("Exceeded the number of seeds")
+      return Promise.reject(new Error("Exceeded the number of seeds"))
     }
 
     const recommendationsPromise = getRecommendations({

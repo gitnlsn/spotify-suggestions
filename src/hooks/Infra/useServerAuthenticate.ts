@@ -25,7 +25,7 @@ export const useServerAuthenticate = ({
     loading: "idle",
   })
 
-  const forceLoad = useCallback(() => {
+  const forceLoad = useCallback(async () => {
     setState({
       token: null,
       loading: "pending",

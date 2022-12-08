@@ -20,7 +20,9 @@ export const authenticate = async ({
   client_id,
   client_secret,
 }: AuthProps): Promise<AuthResponse> => {
-  const token = Buffer.from(client_id + ":" + client_secret).toString("base64")
+  const token = Buffer.from(
+    `${client_id ?? ""}:${client_secret ?? ""}`
+  ).toString("base64")
 
   return createSpotifyAxiosInstance()
     .post<AuthResponse>(

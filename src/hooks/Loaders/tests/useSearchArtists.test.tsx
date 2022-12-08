@@ -76,7 +76,7 @@ describe("useSearchArtists", () => {
     axiosInstance.get.mockResolvedValueOnce({ data: newData })
 
     act(() => {
-      result.current.forceLoad()
+      result.current.forceLoad().catch(console.error)
     })
 
     await waitForNextUpdate()
@@ -107,7 +107,7 @@ describe("useSearchArtists", () => {
     axiosInstance.get.mockResolvedValueOnce({ data: newData })
 
     act(() => {
-      result.current.loadNextPage()
+      result.current.loadNextPage().catch(console.error)
     })
 
     await waitForNextUpdate()
@@ -166,7 +166,7 @@ describe("useSearchArtists", () => {
     axiosInstance.get.mockRejectedValueOnce("Error")
 
     act(() => {
-      result.current.loadNextPage()
+      result.current.loadNextPage().catch(console.error)
     })
 
     await waitForNextUpdate()

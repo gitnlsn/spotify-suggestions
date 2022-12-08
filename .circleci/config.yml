@@ -13,6 +13,7 @@ executors:
   docker-python:
     docker:
       - image: cimg/python:3.9.6
+
 jobs:
   tests:
     executor: docker-node
@@ -43,6 +44,16 @@ jobs:
       - run: 
           name: Build
           command: npx react-scripts build
+  linter:
+    executor: docker-node
+    steps:
+      - checkout
+      - run: 
+          name: Install Dependencies
+          command: yarn
+      - run: 
+          name: Eslint
+          command: npx react-scripts build
   security:
     executor: docker-python
     steps:
@@ -53,9 +64,11 @@ jobs:
       - run:
            name: njsscan check
            command: njsscan .
+
 workflows:
   basic-workflow:
     jobs:
       - tests
       - build
+      - linter
       - security

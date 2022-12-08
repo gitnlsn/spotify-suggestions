@@ -37,7 +37,7 @@ interface getNextPageProps {
  * Search next page with provided link
  * (https://developer.spotify.com/documentation/web-api/reference/#/operations/search)
  */
-export const searchNext = ({ axiosInstance, link }: getNextPageProps) => {
+export const searchNext = async ({ axiosInstance, link }: getNextPageProps) => {
   return axiosInstance
     .get<SearchResponseProps>(link, {
       headers: { "Content-Type": "application/json" },
