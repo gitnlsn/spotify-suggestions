@@ -1,5 +1,6 @@
-[![codecov](https://codecov.io/gh/gitnlsn/spotify-suggestions/branch/main/graph/badge.svg?token=MgmICeGr3x)](https://codecov.io/gh/gitnlsn/spotify-suggestions)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8a7bee68-2cd9-478e-beea-c61216fc25c7/deploy-status)](https://app.netlify.com/sites/regal-pavlova-66863a/deploys)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/gitnlsn/spotify-suggestions/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gitnlsn/spotify-suggestions/tree/main)
+[![codecov](https://codecov.io/gh/gitnlsn/spotify-suggestions/branch/main/graph/badge.svg?token=MgmICeGr3x)](https://codecov.io/gh/gitnlsn/spotify-suggestions)
 
 # Description
 
@@ -34,6 +35,14 @@ $ npm run test
 ```
 
 Currently unit tests and tests that make api calls are run together.
+
+# Storybook
+
+This project has a storybook.
+
+```bash
+$ npm run storybook
+```
 
 # Contributions
 
