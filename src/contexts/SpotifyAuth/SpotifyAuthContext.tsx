@@ -48,7 +48,7 @@ export const SpotifyAuthProvider: React.FC<SpotifyAuthProviderProps> = ({
   })
 
   const { token: serverToken } = useServerAuthenticate(
-    serverAuthentication ? serverAuthentication : {}
+    serverAuthentication ?? {}
   )
 
   const token = useMemo(() => {
@@ -78,9 +78,7 @@ export const SpotifyAuthProvider: React.FC<SpotifyAuthProviderProps> = ({
         setAuthorizationCode,
       }}
     >
-      <SpotifyTokenProvider token={token}>
-        {children}
-      </SpotifyTokenProvider>
+      <SpotifyTokenProvider token={token}>{children}</SpotifyTokenProvider>
     </SpotifyAuthContext.Provider>
   )
 }

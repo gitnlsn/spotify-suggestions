@@ -15,7 +15,7 @@ interface getRecommendationsProps {
  * Gets tracks recommendations from spotify.
  * (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations)
  */
-export const getRecommendations = ({
+export const getRecommendations = async ({
   params: { seed_artists, seed_genres, seed_tracks, limit },
   axiosInstance,
 }: getRecommendationsProps) => {

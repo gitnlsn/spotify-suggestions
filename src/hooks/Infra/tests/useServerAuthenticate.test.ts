@@ -7,8 +7,8 @@ import {
 
 describe("useServerAuthenticate", () => {
   const envCrendetials: useAuthenticatorProps = {
-    client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID || "",
-    client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || "",
+    client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID ?? "",
+    client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET ?? "",
   }
 
   const TrialHook = () => {

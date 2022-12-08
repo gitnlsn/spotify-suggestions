@@ -39,7 +39,7 @@ export const DevInfraProvider: React.FC<DevInfraProviderProps> = ({
     token: authenticatedToken,
     loading,
     forceLoad,
-  } = useServerAuthenticate(authentication ? authentication : {})
+  } = useServerAuthenticate(authentication ?? {})
 
   const token = useMemo(() => {
     if (injectedToken) {

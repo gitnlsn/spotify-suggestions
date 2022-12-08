@@ -32,7 +32,7 @@ export const useSearchArtists = ({ query, limit }: useSearchArtistsProps) => {
     return state.artists.items
   }, [state])
 
-  const forceLoad = useCallback(() => {
+  const forceLoad = useCallback(async () => {
     setState({
       artists: null,
       loading: "pending",
@@ -60,13 +60,13 @@ export const useSearchArtists = ({ query, limit }: useSearchArtistsProps) => {
     return searchPromise
   }, [limit, query, axiosInstance])
 
-  const loadNextPage = useCallback(() => {
-    if (!state.artists || !state.artists.next) {
+  const loadNextPage = useCallback(async () => {
+    if (!state.artists?.next) {
       setState({
         artists: null,
         loading: "error",
       })
-      return Promise.reject("Missing link to load next page")
+      return Promise.reject(new Error("Missing link to load next page"))
     }
 
     const searchPromise = searchNext({

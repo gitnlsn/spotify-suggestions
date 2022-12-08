@@ -32,8 +32,8 @@ export const authenticate = async ({
     .post<AuthResponse>(
       "https://accounts.spotify.com/api/token",
       {
-        code: code,
-        redirect_uri: redirect_uri,
+        code,
+        redirect_uri,
         grant_type: "authorization_code",
       },
       {

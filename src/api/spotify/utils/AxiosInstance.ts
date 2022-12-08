@@ -7,7 +7,7 @@ export const createSpotifyAxiosInstance = (token?: string) =>
   axios.create({
     headers: {
       // injects beared token
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : null,
 
       // Those additional headers if set with axios default
       // will make spotify api return wrong encoding

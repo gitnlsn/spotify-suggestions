@@ -19,9 +19,11 @@ export const useAuthenticate = ({ code }: useAuthenticatorProps) => {
     loading: "idle",
   })
 
-  const forceLoad = useCallback(() => {
+  const forceLoad = useCallback(async () => {
     if (!code) {
-      return Promise.reject("Missing authorization code to authenticate")
+      return Promise.reject(
+        new Error("Missing authorization code to authenticate")
+      )
     }
 
     setState({
@@ -30,9 +32,9 @@ export const useAuthenticate = ({ code }: useAuthenticatorProps) => {
       loading: "pending",
     })
     const authenticationPromise = authenticate({
-      client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID || "",
-      client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || "",
-      redirect_uri: process.env.REACT_APP_SPOTIFY_AUTH2_REDIRECT_URL || "",
+      client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID ?? "",
+      client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET ?? "",
+      redirect_uri: process.env.REACT_APP_SPOTIFY_AUTH2_REDIRECT_URL ?? "",
       code,
     })
 
@@ -64,7 +66,7 @@ export const useAuthenticate = ({ code }: useAuthenticatorProps) => {
 
   useEffect(() => {
     if (state.loading === "idle" && code && !state.token) {
-      forceLoad()
+      forceLoad().catch(console.error)
     }
   }, [code, forceLoad, state.loading, state.token])
 
