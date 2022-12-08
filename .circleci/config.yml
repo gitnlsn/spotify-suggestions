@@ -53,7 +53,7 @@ jobs:
           command: yarn
       - run: 
           name: Eslint
-          command: npx react-scripts build
+          command: npx eslint src
   security:
     executor: docker-python
     steps:
