@@ -13,7 +13,6 @@ executors:
   docker-python:
     docker:
       - image: cimg/python:3.9.6
-
 jobs:
   tests:
     executor: docker-node
@@ -53,8 +52,7 @@ jobs:
           command: pip install --upgrade njsscan
       - run:
            name: njsscan check
-           command: njsscan .          
-
+           command: njsscan .
 workflows:
   basic-workflow:
     jobs:
