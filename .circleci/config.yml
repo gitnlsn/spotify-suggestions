@@ -19,19 +19,19 @@ jobs:
     executor: docker-node
     steps:
       - checkout
-      - run: 
+      - run:
           name: Install dependencies
           command: yarn
-      - run: 
+      - run:
           name: Run Tests
           command: npx jest --coverage
-      - run: 
+      - run:
           name: Download executable
           command: curl -Os https://uploader.codecov.io/latest/linux/codecov
-      - run: 
+      - run:
           name: Make executable
           command: chmod +x codecov
-      - run: 
+      - run:
           name: Run codecov
           command: ./codecov
   build:
@@ -40,24 +40,12 @@ jobs:
     executor: docker-node
     steps:
       - checkout
-      - run: 
+      - run:
           name: Install Dependencies
           command: yarn
-      - run: 
+      - run:
           name: Build
           command: npx react-scripts build
-  linter:
-    environment:
-      CI: ""
-    executor: docker-node
-    steps:
-      - checkout
-      - run: 
-          name: Install Dependencies
-          command: yarn
-      - run: 
-          name: Eslint
-          command: npx eslint src
   security:
     executor: docker-python
     steps:
@@ -66,13 +54,12 @@ jobs:
           name: Install njsscan
           command: pip install --upgrade njsscan
       - run:
-           name: njsscan check
-           command: njsscan .
+          name: njsscan check
+          command: njsscan .
 
 workflows:
   basic-workflow:
     jobs:
       - tests
       - build
-      - linter
       - security
