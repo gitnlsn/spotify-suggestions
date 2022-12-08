@@ -35,6 +35,8 @@ jobs:
           name: Run codecov
           command: ./codecov
   build:
+    environment:
+      CI: ""
     executor: docker-node
     steps:
       - checkout
@@ -45,6 +47,8 @@ jobs:
           name: Build
           command: npx react-scripts build
   linter:
+    environment:
+      CI: ""
     executor: docker-node
     steps:
       - checkout
