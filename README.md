@@ -12,7 +12,7 @@ This project is a front-end app that consumes [spotify api](https://developer.sp
 To configure this project, install the dependencies:
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 Then add `.env` file following `.env.example.`
@@ -24,7 +24,7 @@ And `AUTH2_REDIRECT_URL` should be set to the home page of the app.
 Once it's all done, run:
 
 ```bash
-$ npm start
+$ yarn start
 ```
 
 # Testing
@@ -32,7 +32,7 @@ $ npm start
 Tests are run with `jest`.
 
 ```bash
-$ npm run test
+$ yarn test
 ```
 
 Currently unit tests and tests that make api calls are run together.
@@ -42,7 +42,7 @@ Currently unit tests and tests that make api calls are run together.
 This project has a storybook.
 
 ```bash
-$ npm run storybook
+$ yarn storybook
 ```
 
 # Contributions
