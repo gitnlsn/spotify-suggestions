@@ -46,6 +46,18 @@ jobs:
       - run:
           name: Build
           command: npx react-scripts build
+  build-storybook:
+    environment:
+      CI: ""
+    executor: docker-node
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: yarn
+      - run:
+          name: Build storybook
+          command: npx build-storybook -s public
   security:
     executor: docker-python
     steps:
@@ -62,4 +74,5 @@ workflows:
     jobs:
       - tests
       - build
+      - build-storybook
       - security
