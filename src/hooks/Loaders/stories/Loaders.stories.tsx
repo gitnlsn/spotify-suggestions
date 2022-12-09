@@ -19,7 +19,7 @@ import { useRecommendations } from "../useRecommendations"
 import { useSearchArtists } from "../useSearchArtists"
 
 export default {
-  title: "System/Loaders",
+  title: "Api/Loaders",
   component: DevInfraProvider,
   argsTypes: {},
 }
